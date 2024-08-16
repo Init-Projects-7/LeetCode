@@ -1,6 +1,5 @@
 package com.example.solutions.hackern;
 
-import java.util.Arrays;
 
 public class RecursiveDigitSum {
 
