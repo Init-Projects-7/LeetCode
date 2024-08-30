@@ -395,5 +395,17 @@ public class LinkedList {
         }
     }
     
+    public int binaryToDecimal() {
+    	int sum = 0;
+    	int counter = this.length;
+    	Node temp = head;
+    	while(temp!=null) {
+    		sum += temp.value + counter * 2;
+    		temp = temp.next;
+    		counter--;
+    	}
+    	return sum;
+    }
+    
 }
 

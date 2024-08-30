@@ -125,5 +125,109 @@ public class DoubleLinkedList {
     	}    	
     }
     
+    public Node get(int index){
+    	if(length == 0) return null;
+        if(index < 0 || index > length) return null;
+        if (index == 0 ) return head;
+        Node temp = head;
+        int counter = 0;
+        while(temp!=null) {
+        	if(counter == index) {
+        		return temp;
+        	}else {
+        		counter++;
+        		temp = temp.next;
+        	}
+        }
+        return null;
+    }
+    
+    public boolean set(int index, int value){
+    	if(length == 0) return false;
+        if(index < 0 || index > length) return false;
+        if (index == 0 ) {
+        	head.value = value;
+        	return true;
+        }
+        if(index == this.length) {
+        	tail.value = value;
+        	return true;
+        }
+        Node currNode = this.get(index);
+        currNode.value = value;
+        return true;
+    }
+    
+    public boolean insert(int index, int value) {
+        if(index < 0 || index > length) return false;
+        if(index == length) { this.append(value); return true;}
+        if(index == 0) {this.prepend(value); return true;}
+        Node prevNode = this.get(index - 1);
+        Node selectedIndex = this.get(index);
+        Node newNode = new Node(value);
+        prevNode.next = newNode;
+        newNode.prev = prevNode;
+        newNode.next = selectedIndex;
+        selectedIndex.prev = newNode;
+        this.length++;
+    	return true;
+    }
+    
+    
+    public Node remove(int index) {
+        if(index < 0 || index > length-1) return null;
+        if(index == length-1) return this.removeLast();
+        if(index == 0) return this.removeFirst();
+        Node nextNode = this.get(index + 1);
+        Node removableNode = this.get(index);
+        Node prevNode = this.get(index - 1);
+        nextNode.prev = prevNode;
+        prevNode.next = nextNode;
+        this.length--;
+    	return removableNode;
+    }
+    
+    public void swapFirstLast() {
+    	if(length == 0) return;
+    	if(length == 1) return;
+       else{
+    		int val = head.value;
+    		head.value = tail.value;
+    		tail.value = val;
+    		
+    	}
+    }
+    
+    public void reverse() {
+        Node current = head;
+        Node temp = null;
+    
+        while (current != null) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev;
+        }
+    
+        temp = head;
+        head = tail;
+        tail = temp;
+    }
+    
+    
+    public boolean isPalindrome() {
+    	Node refHead = head;
+    	Node refTail = tail;
+    	
+    	while(refHead!=null && refTail!=null) {
+    		if(refHead.value != refTail.value) {
+    			return false;
+    		}else {
+    			refHead = refHead.next;
+    			refTail = refTail.prev;
+    		}
+    	}
+    	return true;
+    }
 
 }
